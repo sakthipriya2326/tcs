@@ -1,0 +1,60 @@
+package my_story_cards;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner lScanner = new Scanner(System.in);
+        ResourceTrackerModule lModule = new ResourceTrackerModule();
+
+        // Standard Array Setup (No Generics)
+        Employee[] gEmployeeList = new Employee[5];
+        gEmployeeList[0] = new Employee(101, "Sakthi Priya", "Java, React, Figma");
+        gEmployeeList[1] = new Employee(102, "Amit", "Python, SQL");
+        gEmployeeList[2] = new Employee(103, "Divya", "Java, Spring Boot");
+        int gEmployeeCount = 3;
+
+        Project[] gProjectList = new Project[5];
+        gProjectList[0] = new Project(501, "Raavanaa Platform", "In Progress");
+        gProjectList[1] = new Project(502, "Stupro App", "Not Started");
+        int gProjectCount = 2;
+
+        int lChoice = 0;
+        do {
+            System.out.println("\n=========================================");
+            System.out.println("  EMPLOYEE RESOURCE MANAGEMENT SYSTEM    ");
+            System.out.println("=========================================");
+            System.out.println("1. Search Employees by Skills");
+            System.out.println("2. Update Project Status Tracking");
+            System.out.println("3. Process Performance Review");
+            System.out.println("4. Exit");
+            System.out.print("Enter your choice: ");
+
+            try {
+                lChoice = lScanner.nextInt();
+                switch (lChoice) {
+                    case 1:
+                        lModule.searchEmployeeBySkill(gEmployeeList, gEmployeeCount, lScanner);
+                        break;
+                    case 2:
+                        lModule.updateProjectStatus(gProjectList, gProjectCount, lScanner);
+                        break;
+                    case 3:
+                        lModule.reviewEmployeePerformance(gEmployeeList, gEmployeeCount, lScanner);
+                        break;
+                    case 4:
+                        System.out.println("Exiting application...");
+                        break;
+                    default:
+                        System.out.println("Invalid choice! Please select 1-4.");
+                }
+            } catch (InputMismatchException lEx) {
+                System.out.println("Error: Please enter a valid integer choice (1-4).");
+                lScanner.nextLine();
+            }
+        } while (lChoice != 4);
+
+        lScanner.close();
+    }
+}
